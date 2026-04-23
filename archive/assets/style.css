@@ -42,4 +42,6 @@ footer a { color: var(--accent); }
 footer p { margin: 0 0 .75rem; }
 .license { display: flex; align-items: flex-start; gap: .75rem; flex-wrap: wrap; }
 .license svg { flex: 0 0 auto; }
+pre.download { background: #111; color: #f4f4ef; padding: .9rem 1.1rem; border-radius: 4px; overflow-x: auto; font-size: .9rem; line-height: 1.5; }
+pre.download code { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; }
 code { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; }

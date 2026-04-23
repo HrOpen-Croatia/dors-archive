@@ -9,10 +9,36 @@ attribution; derivative works must be released under the same license.
 ## Contents
 
 - `archive/` — the built archive: `Caddyfile`, landing page (`index.html`),
-  `404.html`, assets, and per-year HTML trees (`main/`, `2013/` … `2026/`).
-  The large crawled subtrees (`main/`, `20YY/`) are produced by the
-  scripts and are **not tracked in git** — they ship as a tarball
-  (`dorscluc-archive-YYYYMMDD.tar.zst`, ~720 MB).
+  `404.html`, assets, and per-year HTML trees (`main/`, `1996/` … `2026/`).
+  The large crawled subtrees are **not tracked in git**; they ship as a
+  tarball (~985 MB) served from the live archive.
+
+## Downloading the archive content
+
+The repo contains only the build pipeline + static scaffolding (~170 KB).
+To get the actual crawled content, pull the tarball from the live site:
+
+```sh
+curl -O https://archive.dorscluc.org/dorscluc-archive-latest.tar.zst
+tar --zstd -xf dorscluc-archive-latest.tar.zst
+```
+
+Dated builds are also available, e.g.
+`https://archive.dorscluc.org/dorscluc-archive-20260423.tar.zst`.
+
+## Fixing a page in the archive
+
+1. Download + extract the tarball as above.
+2. Find the page under `archive/<year>/…/index.html`.
+3. Edit.
+4. Open a PR against this repo with the rewritten file attached, and
+   note what you changed in the description. A maintainer reviews,
+   applies it to the source archive directory, rebuilds the tarball,
+   and redeploys.
+
+For small typo fixes inside HTML files, you can often just open an
+issue with a quote of the wrong/right text — a maintainer will patch
+it in.
 - `scripts/` — the capture + post-processing pipeline. Re-runnable.
 - `tests/` — pytest suite for the link rewriter.
 - `docs/superpowers/specs/` — design doc.
