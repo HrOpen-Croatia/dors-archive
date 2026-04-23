@@ -1,7 +1,10 @@
 # dorscluc.org archive
 
-Static snapshot of every DORS/CLUC conference edition (2013–2026) plus the
+Static snapshot of every DORS/CLUC conference edition (1996–2026) plus the
 historical main site.
+
+Licensed **[CC BY-SA 4.0](LICENSE)**: use, share, and adapt freely with
+attribution; derivative works must be released under the same license.
 
 ## Contents
 
