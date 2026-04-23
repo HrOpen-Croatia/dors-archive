@@ -258,6 +258,233 @@ def _parse_legacy_program(path: Path, year: int) -> Iterable[dict]:
     return out
 
 
+# ---- Pre-2004 schedule text-mining -----------------------------------
+
+_TIME_RE = re.compile(r"\b(\d{1,2}[:.]\d{2})\s*[-–—]\s*(\d{1,2}[:.]\d{2})\b")
+
+
+def _text_between_nav_and_footer(html: str) -> str:
+    """Get main body text, stripping top navigation and trailing footer."""
+    soup = BeautifulSoup(html, "lxml")
+    for s in soup(["script", "style", "nav"]):
+        s.extract()
+    text = soup.body.get_text(" ", strip=True) if soup.body else ""
+    text = re.sub(r"\s+", " ", text).strip()
+    # Remove obvious nav words at the start ("Home Satnica Prijava ...")
+    nav_prefix_re = re.compile(
+        r"^(?:Home|Satnica|Prijava|Slike|Sponzori|Prezentacije|Skupština|HrOpen|HULK|ULK|Novosti|open\.hr|Poziv autorima)"
+        r"(?:\s+(?:Home|Satnica|Prijava|Slike|Sponzori|Prezentacije|Skupština|HrOpen|HULK|ULK|Novosti|open\.hr|Poziv autorima))*\s+",
+        re.IGNORECASE,
+    )
+    text = nav_prefix_re.sub("", text, count=1).strip()
+    return text
+
+
+def _split_schedule_by_time(text: str) -> list[str]:
+    """Split a schedule text on time markers like '09:30 - 10:00', returning
+    non-empty slot chunks (each representing one row)."""
+    # Place a marker before each time, then split.
+    marked = _TIME_RE.sub(r"\n§\1-\2§ ", text)
+    chunks = [c.strip() for c in marked.split("\n") if c.strip()]
+    # Keep only chunks that actually contain a time marker.
+    return [c for c in chunks if c.startswith("§")]
+
+
+def _parse_schedule_chunk(chunk: str) -> tuple[list[str], str] | None:
+    """From a row like 'time Speaker [, Affiliation]: Title' or
+    'time Speaker Affiliation Title', extract ([speakers], title).
+    Returns None for clearly-uninteresting chunks (breaks, meals, intro)."""
+    # Strip the time marker.
+    body = re.sub(r"^§[\d.: -]+§\s*", "", chunk).strip()
+    if not body:
+        return None
+
+    low = body.lower()
+    if any(k in low for k in ("pauza", "ručak", "rucak", "break", "odmor",
+                              "lunch", "coffee", "uvodna rij", "registracija",
+                              "zakljucna rij", "zatvaranje")):
+        return None
+
+    # Style 1: "Speaker, Affiliation: Title"
+    m = re.match(r"(.{3,100}?)\s*,\s*([^:]{2,80})\s*:\s*(.{4,300})", body)
+    if m:
+        name = m.group(1).strip()
+        title = m.group(3).strip()
+        return [name], title
+
+    # Style 2: "Speaker: Title"
+    m = re.match(r"([A-ZŠŽČĆĐŽ][^:]{2,60}?):\s*(.{4,300})", body)
+    if m:
+        return [m.group(1).strip()], m.group(2).strip()
+
+    # Style 3: "Speaker Org Title" where Title starts after an org that
+    # often ends in known abbreviations; hard to parse perfectly. Fall
+    # back to: first 2-4 words are speaker name, everything after is title
+    # (best-effort, produces noise but still useful for search).
+    words = body.split()
+    if len(words) >= 4:
+        # Take words starting with uppercase letter as the name, up to 4.
+        name_words = []
+        for w in words[:4]:
+            if re.match(r"^[A-ZŠŽČĆĐ]", w):
+                name_words.append(w)
+            else:
+                break
+        if len(name_words) >= 2:
+            name = " ".join(name_words)
+            title = " ".join(words[len(name_words):]).strip()
+            if 5 < len(title) < 300:
+                return [name], title
+    return None
+
+
+def _parse_two_col_table(path: Path, year: int) -> list[dict]:
+    """Tables where row[0]=speaker, row[1]=title (DORS 1998 format)."""
+    soup = BeautifulSoup(path.read_text(encoding="utf-8", errors="replace"), "lxml")
+    out: list[dict] = []
+    rel_url = f"/{year}/{path.name}"
+    for table in soup.find_all("table"):
+        rows = table.find_all("tr")
+        if len(rows) < 2:
+            continue
+        header = [c.get_text(' ', strip=True).lower() for c in rows[0].find_all(['td','th'])]
+        if not (any('predav' in h for h in header) and any('tema' in h for h in header)):
+            continue
+        for tr in rows[1:]:
+            cells = [c.get_text(' ', strip=True) for c in tr.find_all(['td', 'th'])]
+            if len(cells) < 2:
+                continue
+            speaker_raw = cells[0].replace('\n', ' ').strip()
+            title = cells[1].replace('\n', ' ').strip()
+            if not speaker_raw or not title or len(title) < 4:
+                continue
+            # Speaker cell may contain affiliation on a second visible line.
+            speaker = speaker_raw.split(',')[0].split('  ')[0].strip()
+            out.append({
+                "year": year, "title": title[:200],
+                "speakers": [speaker], "abstract": "",
+                "track": None, "room": None, "day": None,
+                "url": rel_url, "kind": "talk",
+            })
+    return out
+
+
+def _parse_1996(year: int = 1996) -> list[dict]:
+    """1996/pred/index.html lists speakers/companies; each has its own sub-page."""
+    out: list[dict] = []
+    idx = ARCHIVE / "1996" / "pred" / "index.html"
+    if not idx.is_file():
+        return out
+    soup = BeautifulSoup(idx.read_text(encoding="utf-8", errors="replace"), "lxml")
+    for ul in soup.find_all(['ul', 'ol']):
+        for li in ul.find_all('li'):
+            name = li.get_text(' ', strip=True)
+            if not name or len(name) > 120:
+                continue
+            a = li.find('a')
+            url = f"/1996/pred/{a.get('href')}" if a and a.get('href') else "/1996/pred/"
+            # Try to open the linked talk page for a title/abstract.
+            title = name
+            abstract = ""
+            if a and a.get('href'):
+                sub = ARCHIVE / "1996" / "pred" / a.get('href')
+                if sub.is_file():
+                    sub_soup = BeautifulSoup(sub.read_text(encoding="utf-8", errors="replace"), "lxml")
+                    t = sub_soup.find(re.compile(r"^h[1-3]$"))
+                    if t:
+                        title = _text_of(t) or title
+                    body = sub_soup.body.get_text(' ', strip=True) if sub_soup.body else ""
+                    abstract = re.sub(r"\s+", " ", body)[:500]
+            out.append({
+                "year": 1996, "title": title[:200],
+                "speakers": [name], "abstract": abstract,
+                "track": None, "room": None, "day": None,
+                "url": url, "kind": "talk",
+            })
+    return out
+
+
+def _parse_1997(year: int = 1997) -> list[dict]:
+    """1997/general.html: freeform bulleted lines of 'Title - Speaker, Affiliation'.
+
+    Sample line: "WWW - Intranet / Internet - Isabelle Gayral, SGI"
+    """
+    path = ARCHIVE / "1997" / "general.html"
+    if not path.is_file():
+        return []
+    html = path.read_text(encoding="utf-8", errors="replace")
+    soup = BeautifulSoup(html, "lxml")
+    for s in soup(["script", "style"]):
+        s.extract()
+    text = soup.body.get_text("\n", strip=True) if soup.body else ""
+    out: list[dict] = []
+    # Each line that has the shape "Title - Name, Affil" is a talk.
+    line_re = re.compile(r"^(.{6,180})\s[-–—]\s([A-ZŠŽČĆĐ][^,\n]{2,60}),\s*(.{2,120})$")
+    for line in text.splitlines():
+        line = line.strip()
+        m = line_re.match(line)
+        if not m:
+            continue
+        title = m.group(1).strip()
+        speaker = m.group(2).strip()
+        if re.search(r"rate|fee|ECU|tutorial \d", title, re.I):
+            continue
+        out.append({
+            "year": 1997, "title": title[:200],
+            "speakers": [speaker], "abstract": "",
+            "track": None, "room": None, "day": None,
+            "url": "/1997/general.html", "kind": "talk",
+        })
+    return out
+
+
+def _parse_pre2004_schedules() -> list[dict]:
+    out: list[dict] = []
+
+    # Per-year source schedule files, relative to archive/<year>/.
+    sources: dict[int, list[str]] = {
+        1999: ["autori.html"],
+        2001: ["satnica.htm"],
+        2002: ["satnica.php.html", "prezentacije.php.html"],
+    }
+
+    for year, files in sources.items():
+        for rel in files:
+            path = ARCHIVE / str(year) / rel
+            if not path.is_file():
+                continue
+            text = _text_between_nav_and_footer(
+                path.read_text(encoding="utf-8", errors="replace"))
+
+            chunks = _split_schedule_by_time(text)
+            url = f"/{year}/{rel.replace('.shtml.html','').replace('.php.html','.php')}"
+
+            if not chunks:
+                continue
+            for c in chunks:
+                parsed = _parse_schedule_chunk(c)
+                if not parsed:
+                    continue
+                speakers, title = parsed
+                out.append({
+                    "year": year, "title": title[:200],
+                    "speakers": speakers[:3], "abstract": "",
+                    "track": None, "room": None, "day": None,
+                    "url": url, "kind": "talk",
+                })
+
+    # 1998: dedicated two-column table parser.
+    p98 = ARCHIVE / "1998" / "predavanja.html"
+    if p98.is_file():
+        out.extend(_parse_two_col_table(p98, 1998))
+
+    # 1996 and 1997 have their own structures.
+    out.extend(_parse_1996())
+    out.extend(_parse_1997())
+
+    return out
+
+
 # ---- Main driver -----------------------------------------------------
 
 def harvest() -> list[dict]:
@@ -317,6 +544,9 @@ def harvest() -> list[dict]:
             if candidate.is_file():
                 records.extend(_parse_legacy_program(candidate, y))
                 break
+
+    # 8) Pre-2004 legacy: text-mine the handful of schedule pages we have.
+    records.extend(_parse_pre2004_schedules())
 
     # Dedupe. Speakers: by (year, name). Sessions: by url. Talks: by
     # (year, title) because legacy scrapes often have no unique URL.

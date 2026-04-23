@@ -8124,5 +8124,668 @@
     "day": null,
     "url": "/2010/program.php.html",
     "kind": "talk"
+  },
+  {
+    "year": 1999,
+    "title": "- od straha do superkorisnika Matija Nalis, HULK Linux jezgra - pogled iznutra Senko Raąić, HULK Microlinux - mali Linux prilagođen hrvatskim korisnicima",
+    "speakers": [
+      "Radoslav Dejanović, Vipnet Linux"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1999/autori.html",
+    "kind": "talk"
+  },
+  {
+    "year": 1999,
+    "title": "- Vrąnak, GS OS RH Uporaba Linuxa u vojnoj hidrometeorologiji Milan Rajačić, Mobile X Window system i grafička korisnička okruľja na Linuxu Hrvoje Dogan, CARNet Integracija Linux i Windows NT sustava",
+    "speakers": [
+      "Dunja Plačko"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1999/autori.html",
+    "kind": "talk"
+  },
+  {
+    "year": 1999,
+    "title": "u sustavima posebne namjene Kristijan Čonkaą, HrOpen Linux u borbi protiv neľeljene el. poąte",
+    "speakers": [
+      "Damir Kovačić, FER Linux"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1999/autori.html",
+    "kind": "talk"
+  },
+  {
+    "year": 1999,
+    "title": "gateway rjeąenja za Windows uredske mreľe Hrvoje Vulin, HULK Baze podataka na Linuxu Dobrica Pavlinuąić, FOI Projekt linux.hr - Integracija Weba i baza podataka na siguran način",
+    "speakers": [
+      "Jakov Čurić, HULK Linux"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1999/autori.html",
+    "kind": "talk"
+  },
+  {
+    "year": 1999,
+    "title": "of New Mexico, SAD Lokalizacija Linuxa Joąko Orąulić, FER Kako se Linux brani od Internet opasnosti",
+    "speakers": [
+      "Vladimir Vuksan, University"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1999/autori.html",
+    "kind": "talk"
+  },
+  {
+    "year": 1999,
+    "title": "Linux u Hrvatskoj",
+    "speakers": [
+      "Okrugli stol"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1999/autori.html",
+    "kind": "talk"
+  },
+  {
+    "year": 1999,
+    "title": "ąkola Linuxa",
+    "speakers": [
+      "Hrvoje Horvat, Absolon Mala"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1999/autori.html",
+    "kind": "talk"
+  },
+  {
+    "year": 1999,
+    "title": "Dogan, CARNet Linux kao napredni usmjerivač (router) Komentare i sugestije šaljite na webmaster@linux.hr . Zadnja promjena: 02.04.1999. | Glavna stranica | Teme i predavači | Upute autorima | Cjenik |",
+    "speakers": [
+      "Dobrica Pavlinuąić, FOI Hrvoje"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1999/autori.html",
+    "kind": "talk"
+  },
+  {
+    "year": 2001,
+    "title": "WAP - koncepti, tehnologije i otvorena rješenja",
+    "speakers": [
+      "Miroslav Vrankić"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2001/satnica.htm",
+    "kind": "talk"
+  },
+  {
+    "year": 2001,
+    "title": "Mogućnosti audio i video streaminga",
+    "speakers": [
+      "Nikola Prib"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2001/satnica.htm",
+    "kind": "talk"
+  },
+  {
+    "year": 2001,
+    "title": "Dinamički Web: Integrirani informacijski sustav",
+    "speakers": [
+      "Tomislav Gudelj"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2001/satnica.htm",
+    "kind": "talk"
+  },
+  {
+    "year": 2001,
+    "title": "VIP.shopping - prvi m-commerce u Hrvatskoj",
+    "speakers": [
+      "Nenad Raca"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2001/satnica.htm",
+    "kind": "talk"
+  },
+  {
+    "year": 2001,
+    "title": "Kako voditi projekt na SourceForge-u",
+    "speakers": [
+      "Dobrica Pavlinušić"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2001/satnica.htm",
+    "kind": "talk"
+  },
+  {
+    "year": 2001,
+    "title": "Sigurnost u novom mileniju",
+    "speakers": [
+      "Joško Oršulić"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2001/satnica.htm",
+    "kind": "talk"
+  },
+  {
+    "year": 2001,
+    "title": "Otvorena budućnost - CARNetovo opredjeljenje za Linux",
+    "speakers": [
+      "Hrvoje Dogan"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2001/satnica.htm",
+    "kind": "talk"
+  },
+  {
+    "year": 2001,
+    "title": "Kako uštedjeti $50,000: korporativni portal na Linuxu",
+    "speakers": [
+      "Dobrica Pavlinušić"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2001/satnica.htm",
+    "kind": "talk"
+  },
+  {
+    "year": 2001,
+    "title": "Distribuirani mjerni sustav zasnovan na Linuxu",
+    "speakers": [
+      "Paško Bare"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2001/satnica.htm",
+    "kind": "talk"
+  },
+  {
+    "year": 2001,
+    "title": "Prilagodba Linux distribucija hrvatskom podneblju",
+    "speakers": [
+      "Vlatko Košturjak"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2001/satnica.htm",
+    "kind": "talk"
+  },
+  {
+    "year": 2001,
+    "title": "Implementacija kernela 2.4 u praksi",
+    "speakers": [
+      "Razgovor"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2001/satnica.htm",
+    "kind": "talk"
+  },
+  {
+    "year": 2002,
+    "title": "u ebXML / business model",
+    "speakers": [
+      "Darko Gulija HINA Uvod"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2002/satnica.php",
+    "kind": "talk"
+  },
+  {
+    "year": 2002,
+    "title": "ebXML repozitorij, UDDI i implementacija ebXML-a",
+    "speakers": [
+      "Jurica Šimunković Novalis"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2002/satnica.php",
+    "kind": "talk"
+  },
+  {
+    "year": 2002,
+    "title": "- protokol za razmjenu ebXML poruka",
+    "speakers": [
+      "Marko Topolnik FER SOAP"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2002/satnica.php",
+    "kind": "talk"
+  },
+  {
+    "year": 2002,
+    "title": "- 10 godina otvorenosti",
+    "speakers": [
+      "Mario Žagar FER HrOpen"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2002/satnica.php",
+    "kind": "talk"
+  },
+  {
+    "year": 2002,
+    "title": "realizaciji Strategije",
+    "speakers": [
+      "Leo Budin FER Ususret"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2002/satnica.php",
+    "kind": "talk"
+  },
+  {
+    "year": 2002,
+    "title": "Business & ??",
+    "speakers": [
+      "Miho Pitarević ZABA Technology/Internet,"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2002/satnica.php",
+    "kind": "talk"
+  },
+  {
+    "year": 2002,
+    "title": "Kako neobična Web aplikacija utječe na živote običnih ljudi",
+    "speakers": [
+      "Kristijan Zimmer FER FER Web"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2002/satnica.php",
+    "kind": "talk"
+  },
+  {
+    "year": 2002,
+    "title": "Pisanje pretraživača zakona objavljenih u NN s podrškom za hrvatski jezik CLUC 2^2 - petak 19. 04. 2002.",
+    "speakers": [
+      "Dobrica Pavlinušić Pliva Information wants to be free"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2002/satnica.php",
+    "kind": "talk"
+  },
+  {
+    "year": 2002,
+    "title": "Kako razmjenjivati dokumente na siguran način",
+    "speakers": [
+      "Dobrica Pavlinušić Pliva Noćna mora sistem administratora"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2002/satnica.php",
+    "kind": "talk"
+  },
+  {
+    "year": 2002,
+    "title": "priča o HRID-i",
+    "speakers": [
+      "Vlatko Košturjak ULK Linux i desktop"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2002/satnica.php",
+    "kind": "talk"
+  },
+  {
+    "year": 2002,
+    "title": "kolegij - klasična gimnazija Problematika Linuxa u srednjim školama",
+    "speakers": [
+      "Ivica Šuran Pazinski"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2002/satnica.php",
+    "kind": "talk"
+  },
+  {
+    "year": 2002,
+    "title": "i informatika Linux+Samba kao Windows server",
+    "speakers": [
+      "Ivan Guštin ELIN Elektronika"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2002/satnica.php",
+    "kind": "talk"
+  },
+  {
+    "year": 2002,
+    "title": "usluge Web server from scratch",
+    "speakers": [
+      "Josip Deanović Croadria Internet"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2002/satnica.php",
+    "kind": "talk"
+  },
+  {
+    "year": 2002,
+    "title": "Clustering tehnologije",
+    "speakers": [
+      "Nikola Pavković FER Linux"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2002/satnica.php",
+    "kind": "talk"
+  },
+  {
+    "year": 2002,
+    "title": "i Danko Butorac Hrvatski savez slijepih Govorni Linux za slijepe",
+    "speakers": [
+      "Dražen Đimoti"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2002/satnica.php",
+    "kind": "talk"
+  },
+  {
+    "year": 2002,
+    "title": "igara pod Linuxom",
+    "speakers": [
+      "Dario Lah FOI Razvoj"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2002/satnica.php",
+    "kind": "talk"
+  },
+  {
+    "year": 2002,
+    "title": "i multimedijalni software na Linuxu",
+    "speakers": [
+      "Christoph Kummerer Demudi Demudi"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/2002/satnica.php",
+    "kind": "talk"
+  },
+  {
+    "year": 1998,
+    "title": "Virtuelne tvrtke i elektroni�ko gospodarstvo",
+    "speakers": [
+      "mr. sc. Dragan �i�i� Pomorski fakultet"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1998/predavanja.html",
+    "kind": "talk"
+  },
+  {
+    "year": 1998,
+    "title": "Arhitektura elektroni�kog poslovanja",
+    "speakers": [
+      "Miroslav Ga�e�a TIS d.d."
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1998/predavanja.html",
+    "kind": "talk"
+  },
+  {
+    "year": 1998,
+    "title": "Elektroni�ka trgovina je ipak ne�to stvarno",
+    "speakers": [
+      "prof. dr. sc. Mario �agar Fakultet elektrotehnike i ra�unarstva"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1998/predavanja.html",
+    "kind": "talk"
+  },
+  {
+    "year": 1998,
+    "title": "Smart-Card tehnologija u elektroni�koj trgovini",
+    "speakers": [
+      "Goran Mu�ak Fakultet elektrotehnike i ra�unarstva"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1998/predavanja.html",
+    "kind": "talk"
+  },
+  {
+    "year": 1998,
+    "title": "Virtualna trgovina korak po korak",
+    "speakers": [
+      "Tatjana Pren�a Fakultet elektrotehnike i ra�unarstva"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1998/predavanja.html",
+    "kind": "talk"
+  },
+  {
+    "year": 1998,
+    "title": "Elektroni�ko bankarstvo u programskom sustavu BaaN IV",
+    "speakers": [
+      "Mr. sc. Zdravko Oklop�i�"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1998/predavanja.html",
+    "kind": "talk"
+  },
+  {
+    "year": 1998,
+    "title": "Virtualna okru�enja: zabava na vrhuncu tehnologije",
+    "speakers": [
+      "Igor Pand�i� MIRALab"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1998/predavanja.html",
+    "kind": "talk"
+  },
+  {
+    "year": 1998,
+    "title": "Kriptografija za 21. stolje�e",
+    "speakers": [
+      "Jo�ko Or�uli� Fakultet elektrotehnike i ra�unarstva"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1998/predavanja.html",
+    "kind": "talk"
+  },
+  {
+    "year": 1998,
+    "title": "Multimedija u otvorenim sustavima",
+    "speakers": [
+      "Mario Kova� Fakultet elektrotehnike i ra�unarstva"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1998/predavanja.html",
+    "kind": "talk"
+  },
+  {
+    "year": 1998,
+    "title": "Informatika u procijepu tehnologije i znanja",
+    "speakers": [
+      "Ratko Gospodneti�"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1998/predavanja.html",
+    "kind": "talk"
+  },
+  {
+    "year": 1996,
+    "title": "DORS '96 - Sun Microsystems",
+    "speakers": [
+      "Sun Microsystems"
+    ],
+    "abstract": "DORS '96 - Sun Microsystems Predavanja Predavanje 18.4.: naslov: Java: Making the Internet Interactive predavac: Darryl Parker trajanje: 45 min. Predavanje 19.4.: naslov: Sun Microsystems New Product Introduction: Enterprise Servers predavac: Darryl Parker trajanje: 45 min. Eventualno ce umjesto gosp. Parkera predavanja odrzati gosp. Scott Hickman",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1996/pred/sun.html",
+    "kind": "talk"
+  },
+  {
+    "year": 1996,
+    "title": "DORS '96 - SiliconGraphics Inc.",
+    "speakers": [
+      "SiliconGraphics Inc."
+    ],
+    "abstract": "DORS '96 - SiliconGraphics Inc. Predavanja Predavanje 18.4.: Naslov: \"High End Graphics and Virtual Reality\" Predavac: Richard Mercille, SiliconGraphics Trajanje: 1h i 30min Sadrzaj: Arhitektura i zahtjevi VR sustava i grafickih superkomjutera Predavanje 19.4.: Naslov: SiliconGraphics - WebForce - internet-intranet Predavac: Isabelle Gayral Trajanje: 30 min Sadrzaj: Tehnicke i marketinske informacije o Web produktima SiliconGraphics-a",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1996/pred/silicon.html",
+    "kind": "talk"
+  },
+  {
+    "year": 1996,
+    "title": "Virtualni svjetovi i virtualni ljudi na Mrezi",
+    "speakers": [
+      "Igor-Sunday Pandzic"
+    ],
+    "abstract": "Virtualni svjetovi i virtualni ljudi na Mrezi 1. Uvod Brzi napredak trodimenzionalne racunarske grafike, razvoj i popularizacija Interneta, kao i potraznja za alatima za suradnju pomocu racunala (Computer Supported Cooperative Work) potakli su istrazivanja na polju Umrezenih Virtualnih Okruzenja (Networked Virtual Environments). Sustavi ovog tipa omogucuju slobodno kretanje i djelovanje vise korisnika u zajednickom virtualnom okruzenju putem mreze. Komunikacijski mehanizam se brine za odrzavanje",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1996/pred/virt1.html",
+    "kind": "talk"
+  },
+  {
+    "year": 1996,
+    "title": "Zeljka Mihajlovic",
+    "speakers": [
+      "Zeljka Mihajlovic"
+    ],
+    "abstract": "",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1996/pred/http://www.zemris.fer.hr/~zeljkam/dors/z.html",
+    "kind": "talk"
+  },
+  {
+    "year": 1996,
+    "title": "Sandor Dembitz",
+    "speakers": [
+      "Sandor Dembitz"
+    ],
+    "abstract": "Naslov: Multimedia i jezik nas svagdasnji Sadrzaj: Prirodni je jezik temeljni oblik ljudske komunikacije. Ovu cinjenicu ne smiju zanemariti ni oni koji se bave tehnickim aspektima komuniciranja, posebno danas kada upravo tehnika rusi mnoge dojucerasnje barijere glede mjesta, vremena i oblika me|uljuskog komuniciranja. Uz multimediju prirodnojezicna barijera postaje predmetom tehnickog zanimanja, ali ona (multimedija) istovremeno nudi i sredstva da se o ljudskom, prirodnom jeziku mnogo toga novog",
+    "track": null,
+    "room": null,
+    "day": null,
+    "url": "/1996/pred/jezikns.html",
+    "kind": "talk"
   }
 ]
