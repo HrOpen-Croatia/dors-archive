@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# Local wget state
+*.log
+wget-*.log
+
+# Crawled content — large, ship separately until we finalize
+archive/main/
+archive/20??/
+!archive/20??/.gitkeep
+
+# Editor junk
+.DS_Store
+.idea/
+.vscode/
