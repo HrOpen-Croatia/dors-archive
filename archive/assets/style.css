@@ -39,4 +39,7 @@ footer {
     color: var(--muted); font-size: .9rem;
 }
 footer a { color: var(--accent); }
+footer p { margin: 0 0 .75rem; }
+.license { display: flex; align-items: flex-start; gap: .75rem; flex-wrap: wrap; }
+.license svg { flex: 0 0 auto; }
 code { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; }
