@@ -36,8 +36,11 @@
 	}
 
 	# 404
-	handle {
+	handle_errors {
 		rewrite * /404.html
+		file_server
+	}
+	handle {
 		file_server
 	}
 }
