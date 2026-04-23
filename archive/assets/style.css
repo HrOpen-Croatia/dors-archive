@@ -31,6 +31,8 @@ header .sub { color: var(--muted); margin: 0 0 2.5rem; }
 }
 .years a:hover { text-decoration: underline; }
 .years p { margin: .35rem 0 0; color: var(--muted); font-size: .92rem; }
+h2 { font-size: 1.15rem; margin: 2rem 0 .5rem; letter-spacing: .02em; color: var(--fg); }
+h2 + .era-note { margin-top: -.25rem; margin-bottom: 1rem; color: var(--muted); font-size: .92rem; }
 footer {
     margin-top: 3.5rem; padding-top: 1.25rem;
     border-top: 1px solid var(--border);

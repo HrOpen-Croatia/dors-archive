@@ -16,12 +16,14 @@ ROOT="archive"
 [[ -f "${ROOT}/Caddyfile" ]] && pass "Caddyfile present" \
     || fail "missing ${ROOT}/Caddyfile"
 
-for y in 2013 2014 2015 2016 2017 2018 2019 2020 2022 2023 2026; do
-    if [[ -f "${ROOT}/${y}/index.html" ]]; then
-        n=$(find "${ROOT}/${y}" -name '*.html' | wc -l)
+for y in 1996 1997 1998 1999 2000 2001 2002 2004 2005 2006 2007 2008 2009 2010 2013 2014 2015 2016 2017 2018 2019 2020 2022 2023 2026; do
+    # Caddyfile falls back to index.shtml.html / index.php.html for years
+    # whose source used SSI or PHP.
+    if [[ -f "${ROOT}/${y}/index.html" || -f "${ROOT}/${y}/index.shtml.html" || -f "${ROOT}/${y}/index.php.html" ]]; then
+        n=$(find "${ROOT}/${y}" \( -name '*.html' -o -name '*.shtml' -o -name '*.htm' \) | wc -l)
         pass "/${y}/ present (${n} HTML files)"
     else
-        fail "/${y}/index.html missing"
+        fail "/${y}/ index missing"
     fi
 done
 [[ -f "${ROOT}/main/index.html" ]] && pass "/main/ present" \
