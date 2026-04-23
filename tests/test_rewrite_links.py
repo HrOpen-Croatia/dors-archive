@@ -115,3 +115,31 @@ def test_form_action_rewritten():
 def test_no_change_returns_identical_string():
     html = '<p>no urls here</p>'
     assert rewrite_html(html) == html
+
+
+def test_json_escaped_url_in_inline_script_rewritten():
+    html = r'{"root":"https:\/\/www.dorscluc.org\/wp-json\/"}'
+    assert rewrite_html(html) == r'{"root":"\/main\/wp-json\/"}'
+
+
+def test_json_escaped_year_subdomain_rewritten():
+    html = r'"ji":"https:\/\/2026.dorscluc.org\/wp-includes\/foo.js?ver=6.1.1"'
+    assert rewrite_html(html) == (
+        r'"ji":"\/2026\/wp-includes\/foo.js?ver=6.1.1"'
+    )
+
+
+def test_url_encoded_in_query_rewritten():
+    html = (
+        '<link href="https://example.com/oembed?url='
+        'https%3A%2F%2F2026.dorscluc.org%2Fperson%2Fnoah%2F">'
+    )
+    assert rewrite_html(html) == (
+        '<link href="https://example.com/oembed?url='
+        '%2F2026%2Fperson%2Fnoah%2F">'
+    )
+
+
+def test_url_encoded_www_rewritten():
+    html = 'url=https%3A%2F%2Fwww.dorscluc.org%2Fpast-conferences%2F'
+    assert rewrite_html(html) == 'url=%2Fmain%2Fpast-conferences%2F'

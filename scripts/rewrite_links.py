@@ -12,13 +12,31 @@ import re
 import sys
 from pathlib import Path
 
-# Matches:  scheme://[www.|YYYY.|files.]dorscluc.org[rest]
+# Plain form. Matches:  scheme://[www.|YYYY.|files.]dorscluc.org[rest]
 # Captures: 1 = subdomain label or empty, 2 = path/query/fragment (may be empty)
 _DORSCLUC_URL_RE = re.compile(
     r"https?://"
     r"(?:([a-z0-9-]+)\.)?"
     r"dorscluc\.org"
     r"(/[^\s\"'<>()]*)?",
+    re.IGNORECASE,
+)
+
+# JSON-escaped form found inside inline <script> data: https:\/\/...
+_DORSCLUC_URL_ESCAPED_RE = re.compile(
+    r"https?:\\/\\/"
+    r"(?:([a-z0-9-]+)\.)?"
+    r"dorscluc\.org"
+    r"((?:\\/[^\s\"'<>()\\]*)*)",
+    re.IGNORECASE,
+)
+
+# URL-encoded form found in query strings like ?url=https%3A%2F%2F...
+_DORSCLUC_URL_PERCENT_RE = re.compile(
+    r"https?%3A%2F%2F"
+    r"(?:([a-z0-9-]+)\.)?"
+    r"dorscluc\.org"
+    r"((?:%2F[^\s\"'<>()%]*)*(?:%2F)?)",
     re.IGNORECASE,
 )
 
@@ -40,10 +58,27 @@ def _rewrite_match(match: re.Match[str]) -> str:
     sub = match.group(1)
     rest = match.group(2) or "/"
     prefix = _map_subdomain(sub)
-    # Collapse //
     if rest.startswith("/"):
         return prefix + rest
     return prefix + "/" + rest
+
+
+def _rewrite_escaped_match(match: re.Match[str]) -> str:
+    sub = match.group(1)
+    rest = match.group(2) or ""
+    prefix = _map_subdomain(sub).replace("/", r"\/")
+    if not rest:
+        return prefix + r"\/"
+    return prefix + rest
+
+
+def _rewrite_percent_match(match: re.Match[str]) -> str:
+    sub = match.group(1)
+    rest = match.group(2) or ""
+    prefix = _map_subdomain(sub).replace("/", "%2F")
+    if not rest:
+        return prefix + "%2F"
+    return prefix + rest
 
 
 def rewrite_html(text: str) -> str:
@@ -52,9 +87,16 @@ def rewrite_html(text: str) -> str:
     Purely textual — does not parse HTML. This matters for malformed WP
     output and for URLs inside inline `style="..."` / `srcset="..."` /
     `<meta content="...">` strings, which a tag-aware rewriter would miss.
+    Handles three encodings that appear in WP-generated HTML:
+      1. plain          https://YYYY.dorscluc.org/path
+      2. JSON-escaped   https:\\/\\/YYYY.dorscluc.org\\/path   (in inline JS)
+      3. URL-encoded    https%3A%2F%2FYYYY.dorscluc.org%2Fpath (in query strings)
     External URLs, relative URLs, and non-http schemes are untouched.
     """
-    return _DORSCLUC_URL_RE.sub(_rewrite_match, text)
+    text = _DORSCLUC_URL_RE.sub(_rewrite_match, text)
+    text = _DORSCLUC_URL_ESCAPED_RE.sub(_rewrite_escaped_match, text)
+    text = _DORSCLUC_URL_PERCENT_RE.sub(_rewrite_percent_match, text)
+    return text
 
 
 def rewrite_file(path: Path) -> bool:
@@ -67,6 +109,9 @@ def rewrite_file(path: Path) -> bool:
     return False
 
 
+_REWRITABLE_EXTS = (".html", ".htm", ".css", ".js", ".xml", ".txt", ".json")
+
+
 def main(argv: list[str]) -> int:
     if len(argv) != 2:
         print("usage: rewrite_links.py <archive_dir>", file=sys.stderr)
@@ -77,11 +122,12 @@ def main(argv: list[str]) -> int:
         return 2
     changed = 0
     total = 0
-    for html in root.rglob("*.html"):
-        total += 1
-        if rewrite_file(html):
-            changed += 1
-    print(f"rewrote {changed}/{total} HTML files under {root}")
+    for path in root.rglob("*"):
+        if path.is_file() and path.suffix.lower() in _REWRITABLE_EXTS:
+            total += 1
+            if rewrite_file(path):
+                changed += 1
+    print(f"rewrote {changed}/{total} files under {root}")
     return 0
 
 
