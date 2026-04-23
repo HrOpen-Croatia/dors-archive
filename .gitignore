@@ -17,3 +17,6 @@ archive/20??/
 .DS_Store
 .idea/
 .vscode/
+
+# Output tarballs
+dorscluc-archive-*.tar.zst
