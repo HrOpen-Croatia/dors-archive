@@ -18,6 +18,9 @@ header .logo { display: block; margin: 0 auto 1.25rem; image-rendering: pixelate
 header h1 { font-size: 2.5rem; margin: 0 0 .25rem; letter-spacing: -.01em; }
 header .sub { color: var(--muted); margin: 0; }
 .lead { font-size: 1.05rem; margin: 0 0 2rem; color: var(--fg); }
+.cta { text-align: center; margin: 0 0 2.25rem; font-size: 1.05rem; }
+.cta a { display: inline-block; padding: .7rem 1.1rem; background: var(--accent); color: #fff; text-decoration: none; border-radius: 4px; }
+.cta a:hover { background: #892d2a; }
 .years {
     list-style: none; padding: 0; margin: 0;
     display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));

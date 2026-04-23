@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Talks — DORS/CLUC Archive</title>
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="stylesheet" href="/assets/style.css">
+<style>
+    .tools {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: .75rem;
+        margin: 1.5rem 0 1rem;
+    }
+    .tools input[type=search], .tools select {
+        font: inherit; padding: .6rem .75rem;
+        border: 1px solid var(--border); border-radius: 4px;
+        background: #fff; color: var(--fg);
+    }
+    .tools input[type=search] { width: 100%; }
+    .stats { color: var(--muted); font-size: .9rem; margin: 0 0 1rem; }
+    .talks { list-style: none; padding: 0; margin: 0; display: grid; gap: .9rem; }
+    .talk {
+        background: #fff; border: 1px solid var(--border);
+        border-radius: 4px; padding: 1rem 1.15rem;
+    }
+    .talk h3 {
+        margin: 0 0 .2rem; font-size: 1.12rem; line-height: 1.35;
+    }
+    .talk h3 a { color: var(--accent); text-decoration: none; }
+    .talk h3 a:hover { text-decoration: underline; }
+    .talk .meta {
+        color: var(--muted); font-size: .88rem; margin: 0 0 .45rem;
+        display: flex; flex-wrap: wrap; gap: .75rem;
+    }
+    .talk .meta .year {
+        font-weight: 700; color: var(--fg);
+    }
+    .talk .abstract {
+        margin: 0; color: #333; font-size: .94rem;
+    }
+    .talk mark {
+        background: #ffef7e; color: var(--fg); padding: 0 .1em;
+    }
+    .empty {
+        text-align: center; padding: 3rem 1rem; color: var(--muted);
+    }
+    @media (max-width: 640px) {
+        .tools { grid-template-columns: 1fr; }
+    }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+    <img class="logo" src="/assets/logo.png" alt="DORS/CLUC pixel-art Tux logo" width="120" height="120">
+    <h1>Talks</h1>
+    <p class="sub">Every session, talk, workshop and speaker we could find in the archive.</p>
+</header>
+
+<p><a href="/">&larr; back to the archive</a></p>
+
+<div class="tools">
+    <input id="q" type="search" placeholder="Search title, speaker, abstract…" autofocus>
+    <select id="year" title="Filter by year">
+        <option value="">All years</option>
+    </select>
+    <select id="kind" title="Filter by kind">
+        <option value="">All kinds</option>
+        <option value="session">Sessions</option>
+        <option value="talk">Talks</option>
+        <option value="speaker">Speakers</option>
+    </select>
+</div>
+
+<p class="stats" id="stats"></p>
+<ul class="talks" id="results"></ul>
+
+<footer>
+    <p class="license">
+        Content licensed <a href="/LICENSE.txt" rel="license">CC BY-SA 4.0</a>.
+        Missing talks or wrong metadata? Open a PR at
+        <a href="https://github.com/HrOpen-Croatia/dors-archive">github.com/HrOpen-Croatia/dors-archive</a>.
+    </p>
+</footer>
+</div>
+
+<script>
+// Pure-JS, client-side search. No build step, no dependencies.
+(function () {
+    var DATA = [];
+    var $q = document.getElementById('q');
+    var $year = document.getElementById('year');
+    var $kind = document.getElementById('kind');
+    var $results = document.getElementById('results');
+    var $stats = document.getElementById('stats');
+
+    function escapeHtml(s) {
+        return (s || '').replace(/[&<>"']/g, function (c) {
+            return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+        });
+    }
+
+    function highlight(text, needle) {
+        if (!needle) return escapeHtml(text);
+        var esc = escapeHtml(text);
+        var re = new RegExp('(' + needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig');
+        return esc.replace(re, '<mark>$1</mark>');
+    }
+
+    function truncate(s, n) {
+        if (!s) return '';
+        if (s.length <= n) return s;
+        return s.slice(0, n).replace(/\s+\S*$/, '') + '…';
+    }
+
+    function scoreMatch(rec, q) {
+        if (!q) return 1;
+        q = q.toLowerCase();
+        var t = (rec.title || '').toLowerCase();
+        var spk = (rec.speakers || []).join(' ').toLowerCase();
+        var a = (rec.abstract || '').toLowerCase();
+        var score = 0;
+        if (t.indexOf(q) >= 0) score += 3;
+        if (spk.indexOf(q) >= 0) score += 2;
+        if (a.indexOf(q) >= 0) score += 1;
+        return score;
+    }
+
+    function render() {
+        var q = $q.value.trim();
+        var yr = $year.value;
+        var k = $kind.value;
+        var rows = DATA
+            .filter(function (r) {
+                if (yr && String(r.year) !== yr) return false;
+                if (k && r.kind !== k) return false;
+                if (q && scoreMatch(r, q) === 0) return false;
+                return true;
+            })
+            .map(function (r) { return [scoreMatch(r, q), r]; })
+            .sort(function (a, b) {
+                if (b[0] !== a[0]) return b[0] - a[0];
+                return (b[1].year - a[1].year) || (a[1].title > b[1].title ? 1 : -1);
+            });
+
+        $stats.textContent = rows.length + ' result' + (rows.length === 1 ? '' : 's') +
+            (q ? ' for "' + q + '"' : '') +
+            (yr ? ' in ' + yr : '') +
+            (k ? ' • kind: ' + k : '');
+
+        if (!rows.length) {
+            $results.innerHTML = '<li class="empty">Nothing found.</li>';
+            return;
+        }
+
+        $results.innerHTML = rows.slice(0, 500).map(function (pair) {
+            var r = pair[1];
+            var speakers = (r.speakers || []).join(', ');
+            var meta = [
+                '<span class="year">' + r.year + '</span>',
+                r.kind,
+                speakers ? 'by ' + escapeHtml(speakers) : '',
+                r.track ? 'track: ' + escapeHtml(r.track) : '',
+                r.room ? escapeHtml(r.room) : '',
+                r.day ? escapeHtml(r.day) : '',
+            ].filter(Boolean).join(' • ');
+            var abstract = truncate(r.abstract || '', 420);
+            return '<li class="talk">' +
+                '<h3><a href="' + escapeHtml(r.url) + '">' +
+                    highlight(r.title, q) + '</a></h3>' +
+                '<p class="meta">' + meta + '</p>' +
+                (abstract ? '<p class="abstract">' + highlight(abstract, q) + '</p>' : '') +
+                '</li>';
+        }).join('');
+    }
+
+    fetch('/talks.json')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+            DATA = data;
+            // Populate year options from data.
+            var years = Array.from(new Set(data.map(function (d) { return d.year; })))
+                .sort(function (a, b) { return b - a; });
+            years.forEach(function (y) {
+                var o = document.createElement('option');
+                o.value = String(y);
+                o.textContent = String(y);
+                $year.appendChild(o);
+            });
+            render();
+        })
+        .catch(function (e) {
+            $results.innerHTML = '<li class="empty">Failed to load talks.json: ' + e + '</li>';
+        });
+
+    // Debounced search input
+    var debounce = null;
+    $q.addEventListener('input', function () {
+        clearTimeout(debounce);
+        debounce = setTimeout(render, 120);
+    });
+    $year.addEventListener('change', render);
+    $kind.addEventListener('change', render);
+})();
+</script>
+</body>
+</html>
