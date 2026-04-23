@@ -1,0 +1,40 @@
+:root {
+    --bg: #fafaf7;
+    --fg: #1a1a1a;
+    --muted: #666;
+    --accent: #b0413e;
+    --border: #e4e4de;
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    font: 16px/1.55 "Georgia", "Times New Roman", serif;
+    background: var(--bg);
+    color: var(--fg);
+}
+.wrap { max-width: 900px; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+header h1 { font-size: 2.25rem; margin: 0 0 .25rem; letter-spacing: -.01em; }
+header .sub { color: var(--muted); margin: 0 0 2.5rem; }
+.lead { font-size: 1.05rem; margin: 0 0 2rem; color: var(--fg); }
+.years {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+}
+.years li {
+    background: #fff; border: 1px solid var(--border);
+    padding: 1rem 1.1rem; border-radius: 4px;
+}
+.years a {
+    color: var(--accent); text-decoration: none; font-weight: 700;
+    font-size: 1.4rem;
+}
+.years a:hover { text-decoration: underline; }
+.years p { margin: .35rem 0 0; color: var(--muted); font-size: .92rem; }
+footer {
+    margin-top: 3.5rem; padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+    color: var(--muted); font-size: .9rem;
+}
+footer a { color: var(--accent); }
+code { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; }

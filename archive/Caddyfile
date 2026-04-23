@@ -1,0 +1,43 @@
+{
+	# Flip to `auto_https on` + add `email you@example.com` when hosting
+	# behind a real domain.
+	auto_https off
+}
+
+# Swap this address for the final hostname (e.g. archive.dorscluc.org).
+:8080 {
+	root * {$ARCHIVE_ROOT:.}
+	encode zstd gzip
+
+	# Landing page
+	handle / {
+		rewrite * /index.html
+		file_server
+	}
+
+	# Evergreen pages on the main site
+	handle /main/* {
+		file_server {
+			index index.html
+		}
+	}
+
+	# Per-year archives
+	@years path_regexp year ^/(20[0-9]{2})(/.*)?$
+	handle @years {
+		file_server {
+			index index.html
+		}
+	}
+
+	# Landing page assets
+	handle /assets/* {
+		file_server
+	}
+
+	# 404
+	handle {
+		rewrite * /404.html
+		file_server
+	}
+}
